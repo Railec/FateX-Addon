@@ -1,13 +1,9 @@
-class FateX_Addon {
-	static ModuleId = "FateX-Addon"
-	static Templates = {
-		ActorInventory: `modules/${this.ModuleId}/templates/ActorInventoryTemplate.hbs`
-	}
-}
+import { FateXAddon } from "./data/FateXAddon.js";
+import { ActorInventoryTab } from "./ui/ActorInventoryTab.js";
 
 Hooks.once('init', async function () {
 	loadTemplates([
-		FateX_Addon.Templates.ActorInventory
+		FateXAddon.Templates.ActorInventory
 	]);
 });
 

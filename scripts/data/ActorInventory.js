@@ -2,7 +2,7 @@
  * The following class defines access methods for the actor's inventory,
  * the data of which is stored in an actor's Flags.
  */
-class ActorInventory {
+export class ActorInventory {
 	static SortMode = {
 		Alphabetical: 0,
 		Amount: 1,

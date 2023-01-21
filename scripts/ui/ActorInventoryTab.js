@@ -1,7 +1,10 @@
+import { FateXAddon } from "../data/FateXAddon.js";
+import { ActorInventory } from "../data/ActorInventory.js";
+
 /**
  * The following class defines the Inventory tab for the FateX ActorSheet.
  */
-class ActorInventoryTab {
+export class ActorInventoryTab {
 	#application;
 	#inventory;
 
@@ -21,7 +24,7 @@ class ActorInventoryTab {
 		let data = {
 			containers: this.#inventory.getContainers()
 		};
-		let html = renderTemplate(FateX_Addon.Templates.ActorInventory, data);
+		let html = renderTemplate(FateXAddon.Templates.ActorInventory, data);
 		this.activateListeners(html);
 
 		this.#application.element.find(".fatex-desk__tabs .fatex-js-tabs-navigation").append(`
