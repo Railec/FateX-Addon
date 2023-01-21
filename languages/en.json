@@ -1,1 +1,9 @@
-{}
+{
+	"FateX-Addon": {
+		"Inventory": {
+			"Container": {
+				"Add": "Add new item container."
+			}
+		}
+	}
+}

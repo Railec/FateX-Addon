@@ -2,7 +2,7 @@
 	"id": "FateX-Addon",
 	"title": "FateX Addon Project",
 	"description": "A module that adds a variety of systems to the FateX system.",
-	"version": "auto-replace",
+	"version": "#{VERSION}#",
 	"library": "false",
 	"manifestPlusVersion": "1.2.0",
 	"compatibility": {
@@ -48,9 +48,9 @@
 			"path": "languages/en.json"
 		}
 	],
-	"url": "auto-replace",
-	"manifest": "auto-replace",
-	"download": "auto-replace",
+	"url": "#{URL}#",
+	"manifest": "#{MANIFEST}#",
+	"download": "#{DOWNLOAD}#",
 	"license": "LICENSE",
 	"readme": "README.md",
 	"media": []
