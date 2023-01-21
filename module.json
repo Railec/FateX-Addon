@@ -1,0 +1,57 @@
+{
+	"id": "FateX-Addon",
+	"title": "FateX Addon Project",
+	"description": "A module that adds a variety of systems to the FateX system.",
+	"version": "auto-replace",
+	"library": "false",
+	"manifestPlusVersion": "1.2.0",
+	"compatibility": {
+		"minimum": 10,
+		"verified": 10,
+		"maximum": 11
+	},
+	"authors": [
+		{
+			"name": "Railec"
+		}
+	],
+	"relationships": {
+		"systems": [
+			{
+				"id": "fatex",
+				"type": "system",
+				"manifest": "https://github.com/anvil-vtt/FateX/blob/1.0.2/system/system.json",
+				"compatibility": {
+					"verified": "1.0.2"
+				}
+			}
+		],
+		"requires": []
+	},
+	"system": [
+		"fatex"
+	],
+	"esmodules": [
+		"scripts/module.js"
+	],
+	"scripts": [
+		"scripts/data/ActorInventory.js",
+		"scripts/ui/ActorInventoryTab.js"
+	],
+	"styles": [
+		"styles/FateX-Addon.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "languages/en.json"
+		}
+	],
+	"url": "auto-replace",
+	"manifest": "auto-replace",
+	"download": "auto-replace",
+	"license": "LICENSE",
+	"readme": "README.md",
+	"media": []
+}
