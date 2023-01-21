@@ -29,7 +29,9 @@ class ActorInventoryTab {
 		`);
 
 		this.#application.element.find(".fatex-desk__tabs .fatex-js-tab-content").append(`
-			<div class="fatex-tab-content tab" data-tab="inventory"></div>
+			<div class="fatex-tab-content tab" data-tab="inventory">
+				${html}
+			</div>
 		`);
 	}
 

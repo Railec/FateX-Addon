@@ -1,29 +1,27 @@
-<div class="fatex-tab-content tab" data-tab="inventory">
-	<section class="fatex-u-full-width">
-		<div class="fatex-u-padding-std fatex-item-grid">
-			{{#each containers}}
-			<div class="fatex-headline">
-				<h3 class="fatex-headline__text">{{name}}:</h3>
-				<div class="fatex-actions fatex-actions--headline" data-container="{{name}}">
-					{{#if sort}}
-					<i class="fatex-js-container-sort fatex-actions__icon fa fa-sort"></i>
-					<i class="fatex-js-container-rename fatex-actions__icon fa fa-cog"></i>
-					<i class="fatex-js-container-delete fatex-actions__icon fatex-u-delete fa fa-trash"></i>
-					{{/if}}
-					<i
-						class="fatex-js-container-collapse fatex-actions__icon fatex-actions__icon--no-hide fa fa-chevron-up {{#if collapsed}}fatex-actions__icon--reverse{{/if}}"></i>
-				</div>
-			</div>
-			{{#unless collapsed}}
-			<div class="fatex-item-description">
-
-			</div>
-			{{/unless}}
-			{{/each}}
-			<div class="fatex-js-container-add fatex-headline fatex-headline--center fatex-headline--helper"
-				data-tooltip="{{localize " FateX-Addon.Inventory.Container.Add"}}">
-				<h3 class="fatex-headline__text">+</h3>
+<section class="fatex-u-full-width">
+	<div class="fatex-u-padding-std fatex-item-grid">
+		{{#each containers}}
+		<div class="fatex-headline">
+			<h3 class="fatex-headline__text">{{name}}:</h3>
+			<div class="fatex-actions fatex-actions--headline" data-container="{{name}}">
+				{{#if sort}}
+				<i class="fatex-js-container-sort fatex-actions__icon fa fa-sort"></i>
+				<i class="fatex-js-container-rename fatex-actions__icon fa fa-cog"></i>
+				<i class="fatex-js-container-delete fatex-actions__icon fatex-u-delete fa fa-trash"></i>
+				{{/if}}
+				<i
+					class="fatex-js-container-collapse fatex-actions__icon fatex-actions__icon--no-hide fa fa-chevron-up {{#if collapsed}}fatex-actions__icon--reverse{{/if}}"></i>
 			</div>
 		</div>
-	</section>
-</div>
+		{{#unless collapsed}}
+		<div class="fatex-item-description">
+
+		</div>
+		{{/unless}}
+		{{/each}}
+		<div class="fatex-js-container-add fatex-headline fatex-headline--center fatex-headline--helper"
+			data-tooltip="{{localize " FateX-Addon.Inventory.Container.Add"}}">
+			<h3 class="fatex-headline__text">+</h3>
+		</div>
+	</div>
+</section>
