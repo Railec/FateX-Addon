@@ -12,5 +12,8 @@ Hooks.once('init', async function () {
 });
 
 Hooks.on('renderActorSheet', async function (app, html, data) {
-	new ActorInventoryTab(app, data.actor).render();
+	console.log(`FateX-Addon | Initializing inventory tab for ${data.actor}`);
+	if (data.actor) {
+		new ActorInventoryTab(app, data.actor).render();
+	}
 });

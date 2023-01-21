@@ -12,11 +12,11 @@ class ActorInventory {
 	#targetActor;
 
 	constructor(target) {
-		this.targetActor = target;
+		this.#targetActor = target;
 	}
 
 	setup() {
-		let inventory = this.targetActor.getFlag("fatex", "inventory");
+		let containers = this.getContainers();
 
 		let equipped = {
 			name: "Equipped",
@@ -25,13 +25,13 @@ class ActorInventory {
 			collapsed: false,
 			items: []
 		};
-		if (!inventory || inventory.filter(c => c.name === equipped.name).length === 0) {
-			this.targetActor.setFlag("fatex", "inventory", [equipped]);
+		if (!containers || containers.filter(c => c.name === equipped.name).length === 0) {
+			this.#targetActor.setFlag("fatex", "inventory", [equipped]);
 		}
 	}
 
 	getContainers() {
-		return this.targetActor.getFlag("fatex", "inventory");
+		return this.#targetActor.getFlag("fatex", "inventory");
 	}
 
 	addContainer(name, sort = 1, sortMode = ActorInventory.SortMode.User) {
@@ -48,7 +48,7 @@ class ActorInventory {
 				collapsed: false,
 				items: []
 			});
-			this.targetActor.setFlag("fatex", "inventory", containers);
+			this.#targetActor.setFlag("fatex", "inventory", containers);
 
 			return true;
 		}
@@ -63,7 +63,7 @@ class ActorInventory {
 			let index = containers.indexOf(targetContainer[0]);
 			if (index > -1) {
 				containers.splice(index, 1);
-				this.targetActor.setFlag("fatex", "inventory", containers);
+				this.#targetActor.setFlag("fatex", "inventory", containers);
 
 				return true;
 			}
@@ -77,7 +77,7 @@ class ActorInventory {
 		let targetContainer = containers.filter(c => c.name === name);
 		if (targetContainer.length > 0) {
 			targetContainer[0].collapsed = !targetContainer[0].collapsed;
-			this.targetActor.setFlag("fatex", "inventory", containers);
+			this.#targetActor.setFlag("fatex", "inventory", containers);
 		}
 	}
 
@@ -92,7 +92,7 @@ class ActorInventory {
 			} else {
 				targetContainer[0].push({ referenceId: referenceId, sort: sort, amount: amount });
 			}
-			this.targetActor.setFlag("fatex", "inventory", containers);
+			this.#targetActor.setFlag("fatex", "inventory", containers);
 
 			return true;
 		}
@@ -111,7 +111,7 @@ class ActorInventory {
 					targetContainer[0].remove(targetItem[0]);
 				}
 			}
-			this.targetActor.setFlag("fatex", "inventory", inventory);
+			this.#targetActor.setFlag("fatex", "inventory", inventory);
 
 			return true;
 		}
