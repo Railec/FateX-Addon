@@ -15,9 +15,9 @@ export class ActorInventoryTab {
 	}
 
 	activateListeners(html) {
-		html.find(".fatex-js-container-delete").click((e) => this._onContainerDelete.call(this, e, this.#inventory));
-		html.find(".fatex-js-container-collapse").click((e) => this._onCollapseToggle.call(this, e, this.#inventory));
-		html.find(".fatex-js-container-add").click((e) => this._onContainerAdd.call(this, e, this.#inventory));
+		$(html).find(".fatex-js-container-delete").click((e) => this._onContainerDelete.call(this, e, this.#inventory));
+		$(html).find(".fatex-js-container-collapse").click((e) => this._onCollapseToggle.call(this, e, this.#inventory));
+		$(html).find(".fatex-js-container-add").click((e) => this._onContainerAdd.call(this, e, this.#inventory));
 	}
 
 	render() {
