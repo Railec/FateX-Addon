@@ -1,8 +1,29 @@
 {
-	"FateX-Addon": {
-		"Inventory": {
-			"Container": {
-				"Add": "Add new item container."
+	"FATEX-ADDON": {
+		"Inventory": "Inventory",
+		"INVENTORY": {
+			"CONTAINER": {
+				"Sort": "Sort",
+				"Modify": "Modify",
+				"Delete": "Delete",
+				"Collapse": "Collapse",
+				"Expand": "Expand",
+				"Add": "Add new item container"
+			},
+			"DIALOG": {
+				"CONTAINER": {
+					"DELETE": {
+						"Title": "Delete item container",
+						"Content": "Delete item container",
+						"Fail": "Cannot remove the item container"
+					},
+					"ADD": {
+						"title": "Create new item container",
+						"Content": "Container name",
+						"FailEmptyName": "Cannot create a new item container without a name.",
+						"Fail": "Cannot create the new item container"
+					}
+				}
 			}
 		}
 	}
