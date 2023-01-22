@@ -2,7 +2,7 @@
 .fatex-u-modify:hover,
 .fatex-u-collapse:hover,
 .fatex-u-add:hover {
-	color: #f21628;
+	color: rgba(0, 0, 0, 0.1);
 }
 
 .fatex-tab-content[data-tab="inventory"] .fatex-item-description {
