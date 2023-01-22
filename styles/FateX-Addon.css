@@ -4,3 +4,62 @@
 .fatex-u-add:hover {
 	color: #f21628;
 }
+
+.fatex-tab-content[data-tab="inventory"] .fatex-item-description {
+	padding-right: 13px;
+}
+
+.fatex-addon-item-table {
+	position: relative;
+
+	border-top: none;
+	border-bottom: 1px solid var(--color-border-light-primary)
+}
+
+.fatex-addon-item-table thead::before {
+	content: "";
+	position: absolute;
+	top: -1px;
+	left: -1px;
+	border-top: 16px solid #f1f2f6;
+	border-right: 16px solid rgba(0, 0, 0, 0);
+}
+
+.fatex-addon-item-table thead th:first-child {
+	width: 150px;
+
+	border-right: 1px solid var(--color-border-dark-tertiary);
+
+	text-align: center;
+}
+
+.fatex-addon-item-table thead th {
+	text-align: left;
+}
+
+.fatex-addon-item-table thead th:last-child {
+	width: 80px;
+
+	border-left: 1px solid var(--color-border-dark-tertiary);
+
+	text-align: center;
+}
+
+.fatex-addon-item-table tbody td,
+.fatex-addon-item-table thead th {
+	padding: 5px 5px 5px 10px;
+}
+
+.fatex-addon-item-table tbody tr:last-child::after {
+	content: "";
+	position: absolute;
+	bottom: -1px;
+	right: -1px;
+	border-bottom: 16px solid #f1f2f6;
+	border-left: 16px solid rgba(0, 0, 0, 0);
+}
+
+.fatex-addon-item-table tbody tr td:first-child,
+.fatex-addon-item-table tbody tr td:last-child {
+	text-align: center;
+}

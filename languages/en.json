@@ -8,7 +8,12 @@
 				"Delete": "Delete",
 				"Collapse": "Collapse",
 				"Expand": "Expand",
-				"Add": "Add new item container"
+				"Add": "Add new item container",
+				"TABLE": {
+					"Name": "Name",
+					"Description": "Description",
+					"Amount": "Amount"
+				}
 			},
 			"DIALOG": {
 				"CONTAINER": {

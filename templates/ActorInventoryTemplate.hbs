@@ -1,26 +1,46 @@
 <section class="fatex-u-full-width">
 	<div class="fatex-u-padding-std fatex-item-grid">
 		{{#each containers}}
-		<div class="fatex-headline">
-			<h3 class="fatex-headline__text">{{name}}:</h3>
-			<div class="fatex-actions fatex-actions--headline" data-container="{{name}}">
-				{{#if sort}}
-				<i class="fatex-js-container-sort fatex-actions__icon fatex-u-sort fa fa-sort" 
-					data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Sort"}}"></i>
-				<i class="fatex-js-container-rename fatex-actions__icon fatex-u-modify fa fa-cog" 
-					data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Modify"}}"></i>
-				<i class="fatex-js-container-delete fatex-actions__icon fatex-u-delete fa fa-trash" 
-					data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Delete"}}"></i>
-				{{/if}}
-				<i class="fatex-js-container-collapse fatex-actions__icon fatex-actions__icon--no-hide fatex-u-collapse fa fa-chevron-up {{#if collapsed}}fatex-actions__icon--reverse{{/if}}"
-					{{#if collapsed}}data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Expand"}}"{{else}}data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Collapse"}}"{{/if}}></i>
+		<div class="fatex-item-container">
+			<div class="fatex-headline">
+				<h3 class="fatex-headline__text">{{name}}:</h3>
+				<div class="fatex-actions fatex-actions--headline" data-container="{{name}}">
+					{{#if sort}}
+					<i class="fatex-js-container-sort fatex-actions__icon fatex-u-sort fa fa-sort" 
+						data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Sort"}}"></i>
+					<i class="fatex-js-container-rename fatex-actions__icon fatex-u-modify fa fa-cog" 
+						data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Modify"}}"></i>
+					<i class="fatex-js-container-delete fatex-actions__icon fatex-u-delete fa fa-trash" 
+						data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Delete"}}"></i>
+					{{/if}}
+					<i class="fatex-js-container-collapse fatex-actions__icon fatex-actions__icon--no-hide fatex-u-collapse fa fa-chevron-up {{#if collapsed}}fatex-actions__icon--reverse{{/if}}"
+						{{#if collapsed}}data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Expand"}}"{{else}}data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Collapse"}}"{{/if}}></i>
+				</div>
 			</div>
+			{{#unless collapsed}}
+			<div class="fatex-item-description">
+				<table class="fatex-addon-item-table">
+					<thead>
+						<th>{{localize "FATEX-ADDON.INVENTORY.CONTAINER.TABLE.Name"}}</th>
+						<th>{{localize "FATEX-ADDON.INVENTORY.CONTAINER.TABLE.Description"}}</th>
+						<th>{{localize "FATEX-ADDON.INVENTORY.CONTAINER.TABLE.Amount"}}</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Test</td>
+							<td>A simple test entry.</td>
+							<td>1</td>
+						</tr>
+						<tr>
+							<td>Test</td>
+							<td>A simple test entry.</td>
+							<td>1</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			{{/unless}}
 		</div>
-		{{#unless collapsed}}
-		<div class="fatex-item-description">
-
-		</div>
-		{{/unless}}
 		{{/each}}
 		<div class="fatex-js-container-add fatex-headline fatex-headline--center fatex-headline--helper fatex-u-add"
 			data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Add"}}">
