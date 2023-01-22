@@ -23,15 +23,21 @@ class ActorInventoryTab {
 		};
 		let html = await renderTemplate(FateXAddon.Templates.ActorInventory, data);
 
-		this.#application.element.find(".fatex-desk__tabs .fatex-js-tabs-navigation").append(`
-			<a class="fatex-tabs-navigation__item" data-tab="inventory">Inventory</a>
-		`);
-
-		this.#application.element.find(".fatex-desk__tabs .fatex-js-tab-content").append(`
-			<div class="fatex-tab-content tab" data-tab="inventory">
+		if (this.#application.element.find("[data-tab=inventory]").length) {
+			this.#application.element.find("[data-tab=inventory]").empty().append(`
 				${html}
-			</div>
-		`);
+			`);
+		} else {
+			this.#application.element.find(".fatex-desk__tabs .fatex-js-tabs-navigation").append(`
+				<a class="fatex-tabs-navigation__item" data-tab="inventory">Inventory</a>
+			`);
+
+			this.#application.element.find(".fatex-desk__tabs .fatex-js-tab-content").append(`
+				<div class="fatex-tab-content tab" data-tab="inventory">
+					${html}
+				</div>
+			`);
+		}
 
 		this.activateListeners(this.#application.element);
 	}
@@ -49,7 +55,7 @@ class ActorInventoryTab {
 				content: `<p>Delete item container: ${parent[0].dataset.container}?</p>`,
 				yes: () => {
 					if (actorInventory.removeContainer(parent[0].dataset.container)) {
-						this.#application.render();
+						this.render();
 					} else {
 						ui.notifications.error(`Cannot remove the item container: ${parent[0].dataset.container}.`);
 					}
@@ -71,7 +77,7 @@ class ActorInventoryTab {
 			actorInventory.toggleContainerCollapse(parent[0].dataset.container);
 		}
 
-		this.#application.render();
+		this.render();
 	}
 
 	/**
@@ -97,7 +103,7 @@ class ActorInventoryTab {
 						if (value.trim() === "") {
 							ui.notifications.error(`Cannot create a new item container without a name.`);
 						} else if (actorInventory.addContainer(value, 0)) {
-							this.#application.render();
+							this.render();
 						} else {
 							ui.notifications.error(`Cannot create a new item container.`);
 						}
