@@ -35,6 +35,7 @@
 		"scripts/module.js"
 	],
 	"scripts": [
+		"scripts/data/FateXAddon.js",
 		"scripts/data/ActorInventory.js",
 		"scripts/ui/ActorInventoryTab.js"
 	],
