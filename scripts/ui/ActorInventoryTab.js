@@ -23,8 +23,8 @@ class ActorInventoryTab {
 		};
 		let html = await renderTemplate(FateXAddon.Templates.ActorInventory, data);
 
-		if (this.#application.element.find("[data-tab=inventory]").length) {
-			this.#application.element.find("[data-tab=inventory]").empty().append(`
+		if (this.#application.element.find(".tab[data-tab=inventory]").length) {
+			this.#application.element.find(".tab[data-tab=inventory]").empty().append(`
 				${html}
 			`);
 		} else {
