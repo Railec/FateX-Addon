@@ -22,7 +22,6 @@ class ActorInventoryTab {
 			containers: this.#inventory.getContainers()
 		};
 		let html = await renderTemplate(FateXAddon.Templates.ActorInventory, data);
-		this.activateListeners(html);
 
 		this.#application.element.find(".fatex-desk__tabs .fatex-js-tabs-navigation").append(`
 			<a class="fatex-tabs-navigation__item" data-tab="inventory">Inventory</a>
@@ -33,6 +32,8 @@ class ActorInventoryTab {
 				${html}
 			</div>
 		`);
+
+		this.activateListeners(this.#application.element);
 	}
 
 	/**
