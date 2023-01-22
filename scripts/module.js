@@ -1,5 +1,6 @@
-import { FateXAddon } from "./data/FateXAddon.js";
-import { ActorInventoryTab } from "./ui/ActorInventoryTab.js";
+import "./data/FateXAddon.js";
+import "./data/ActorInventory.js";
+import "./ui/ActorInventoryTab.js";
 
 Hooks.once('init', async function () {
 	loadTemplates([
