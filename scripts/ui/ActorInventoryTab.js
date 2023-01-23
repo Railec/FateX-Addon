@@ -17,9 +17,11 @@ class ActorInventoryTab {
 	}
 
 	activateListeners(html) {
-		$(html).find(".fatex-js-container-delete").click((e) => this._onContainerDelete.call(this, e, this.#inventory));
-		$(html).find(".fatex-js-container-collapse").click((e) => this._onCollapseToggle.call(this, e, this.#inventory));
-		$(html).find(".fatex-js-container-add").click((e) => this._onContainerAdd.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-sort").click((e) => this._onContainerSort.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-modify").click((e) => this._onContainerModify.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-delete").click((e) => this._onContainerDelete.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-collapse").click((e) => this._onCollapseToggle.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-add").click((e) => this._onContainerAdd.call(this, e, this.#inventory));
 	}
 
 	async render() {
@@ -48,6 +50,41 @@ class ActorInventoryTab {
 	}
 
 	/**
+	 * OnClick handler for sort-dragging an item container.
+	 */
+	_onContainerSort(e, actorInventory) {
+		e.preventDefault();
+	}
+
+	/**
+	 * OnClick handler for modifying an item container.
+	 */
+	_onContainerModify(e, actorInventory) {
+		e.preventDefault();
+
+		const parent = $(e.currentTarget).parent(".fatex-actions");
+		if (parent.length > 0) {
+			Dialog.confirm({
+				title: game.i18n.localize("FATEX_ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Title"),
+				content: `<p><label>${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Content")}:</label><br/><input id="containerName" type="text"/></p>`,
+				yes: (html) => {
+					const value = html.find("input#containerName").val();
+
+					if (value.trim() === "") {
+						ui.notifications.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.FailEmptyName"));
+					} else if (actorInventory.renameContainer(parent[0].dataset.container, value)) {
+						this.render();
+					} else {
+						ui.notifications.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Fail")}: ${parent[0].dataset.container}.`);
+					}
+				},
+				no: (html) => { },
+				defaultValue: false
+			});
+		}
+	}
+
+	/**
 	 * OnClick handler for deleting an item container.
 	 */
 	_onContainerDelete(e, actorInventory) {
@@ -58,14 +95,14 @@ class ActorInventoryTab {
 			Dialog.confirm({
 				title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Title"),
 				content: `<p>${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Content")}: ${parent[0].dataset.container}?</p>`,
-				yes: () => {
+				yes: (html) => {
 					if (actorInventory.removeContainer(parent[0].dataset.container)) {
 						this.render();
 					} else {
 						ui.notifications.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Fail")}: ${parent[0].dataset.container}.`);
 					}
 				},
-				no: () => { },
+				no: (html) => { },
 				defaultValue: false
 			});
 		}
@@ -98,10 +135,10 @@ class ActorInventoryTab {
 				createButton: {
 					label: game.i18n.localize("Save"),
 					callback: (html) => {
-						const value = html.find("input#containerName").val(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.FailEmptyName"));
+						const value = html.find("input#containerName").val();
 
 						if (value.trim() === "") {
-							ui.notifications.error();
+							ui.notifications.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.FailEmptyName"));
 						} else if (actorInventory.addContainer(value, 0)) {
 							this.render();
 						} else {

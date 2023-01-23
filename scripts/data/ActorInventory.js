@@ -4,9 +4,11 @@
  */
 class ActorInventory {
 	static SortMode = {
-		Alphabetical: 0,
-		Amount: 1,
-		User: 2
+		AscAlphabetical: 0,
+		DescAlphabetical: 1,
+		AscAmount: 2,
+		DescAmount: 3,
+		User: 4
 	}
 
 	#targetActor;
@@ -71,12 +73,35 @@ class ActorInventory {
 		return false;
 	}
 
+	renameContainer(name, newName) {
+		let containers = this.getContainers();
+
+		let targetContainer = containers.filter(c => c.name === name);
+		if (targetContainer.length > 0) {
+			targetContainer[0].name = newName;
+			this.#targetActor.setFlag("fatex", "inventory", containers);
+
+			return true;
+		}
+		return false;
+	}
+
 	toggleContainerCollapse(name) {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === name);
 		if (targetContainer.length > 0) {
 			targetContainer[0].collapsed = !targetContainer[0].collapsed;
+			this.#targetActor.setFlag("fatex", "inventory", containers);
+		}
+	}
+
+	setContainerSortMode(name, sortMode) {
+		let containers = this.getContainers();
+
+		let targetContainer = containers.filter(c => c.name === name);
+		if (targetContainer.length > 0) {
+			targetContainer[0].sortMode = sortMode;
 			this.#targetActor.setFlag("fatex", "inventory", containers);
 		}
 	}

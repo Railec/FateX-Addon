@@ -17,6 +17,12 @@
 			},
 			"DIALOG": {
 				"CONTAINER": {
+					"MODIFY": {
+						"title": "Change item container name",
+						"Content": "New container name",
+						"FailEmptyName": "Cannot rename an item container to have an empty name.",
+						"Fail": "Cannot rename the item container"
+					},
 					"DELETE": {
 						"Title": "Delete item container",
 						"Content": "Delete item container",

@@ -1,8 +1,11 @@
 .fatex-u-sort:hover,
 .fatex-u-modify:hover,
-.fatex-u-collapse:hover,
-.fatex-u-add:hover {
+.fatex-u-collapse:hover {
 	color: rgba(0, 0, 0, 0.1);
+}
+
+.fatex-u-add:hover {
+	color: rgba(80, 200, 127, 1);
 }
 
 .fatex-tab-content[data-tab="inventory"] .fatex-item-description {
@@ -62,4 +65,13 @@
 .fatex-addon-item-table tbody tr td:first-child,
 .fatex-addon-item-table tbody tr td:last-child {
 	text-align: center;
+}
+
+.fatex-addon-item-table tbody tr.fatex-addon-js-item-add {
+	background: rgba(47, 53, 66, 0.1);
+	cursor: pointer;
+}
+
+.fatex-addon-item-table tbody tr.fatex-addon-js-item-add:hover {
+	background: rgba(47, 53, 66, 0.7);
 }
