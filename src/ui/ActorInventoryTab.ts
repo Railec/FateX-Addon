@@ -1,3 +1,6 @@
+import { FateXAddon } from "../data/FateXAddon.js";
+import { ActorInventory } from "../data/ActorInventory.js";
+
 /**
  * This class defines and controls the Inventory Tab.
  * It is intended and should only ever be used on a FateX actor sheet.
@@ -6,25 +9,26 @@
  * The tab provides controls for manipulating a FateX actor's "inventory",
  * which is a concept that Fate by default doesn't have and is borrowed in a lot of ways from DnD and similar.
  */
-class ActorInventoryTab {
-	#application;
-	#inventory;
+export class ActorInventoryTab {
+	#application: Application;
+	#inventory: ActorInventory;
 
-	constructor(application, targetActor) {
+	constructor(application: Application, targetActor: Actor) {
 		this.#application = application;
 		this.#inventory = new ActorInventory(targetActor);
 		this.#inventory.setup();
 	}
 
-	activateListeners(html) {
-		$(html).find(".fatex-addon-js-container-sort").click((e) => this._onContainerSort.call(this, e, this.#inventory));
-		$(html).find(".fatex-addon-js-container-modify").click((e) => this._onContainerModify.call(this, e, this.#inventory));
-		$(html).find(".fatex-addon-js-container-delete").click((e) => this._onContainerDelete.call(this, e, this.#inventory));
-		$(html).find(".fatex-addon-js-container-collapse").click((e) => this._onCollapseToggle.call(this, e, this.#inventory));
-		$(html).find(".fatex-addon-js-container-add").click((e) => this._onContainerAdd.call(this, e, this.#inventory));
+	activateListeners(html: any): void {
+		$(html).find(".fatex-addon-js-container-sort").on("click", (e) => this._onContainerSort.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-modify").on("click", (e) => this._onContainerModify.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-delete").on("click", (e) => this._onContainerDelete.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-collapse").on("click", (e) => this._onCollapseToggle.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-container-add").on("click", (e) => this._onContainerAdd.call(this, e, this.#inventory));
+		$(html).find(".fatex-addon-js-item-add").on("click", (e) => this._onItemAdd.call(this, e, this.#inventory));
 	}
 
-	async render() {
+	async render(): Promise<void> {
 		let data = {
 			containers: this.#inventory.getContainers()
 		};
@@ -52,34 +56,34 @@ class ActorInventoryTab {
 	/**
 	 * OnClick handler for sort-dragging an item container.
 	 */
-	_onContainerSort(e, actorInventory) {
+	_onContainerSort(e: JQuery.ClickEvent, actorInventory: ActorInventory): void {
 		e.preventDefault();
 	}
 
 	/**
 	 * OnClick handler for modifying an item container.
 	 */
-	_onContainerModify(e, actorInventory) {
+	_onContainerModify(e: JQuery.ClickEvent, actorInventory: ActorInventory): void {
 		e.preventDefault();
 
-		const parent = $(e.currentTarget).parent(".fatex-actions");
+		const parent = $(e.currentTarget).parents(".fatex-item-container");
 		if (parent.length > 0) {
 			Dialog.confirm({
 				title: game.i18n.localize("FATEX_ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Title"),
 				content: `<p><label>${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Content")}:</label><br/><input id="containerName" type="text"/></p>`,
 				yes: (html) => {
-					const value = html.find("input#containerName").val();
+					const value = html.find("input#containerName").val()?.toString();
 
-					if (value.trim() === "") {
-						ui.notifications.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.FailEmptyName"));
+					if (value === undefined) {
+						ui.notifications?.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.FailEmptyName"));
 					} else if (actorInventory.renameContainer(parent[0].dataset.container, value)) {
 						this.render();
 					} else {
-						ui.notifications.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Fail")}: ${parent[0].dataset.container}.`);
+						ui.notifications?.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.MODIFY.Fail")}: ${parent[0].dataset.container}.`);
 					}
 				},
 				no: (html) => { },
-				defaultValue: false
+				defaultYes: false
 			});
 		}
 	}
@@ -87,10 +91,10 @@ class ActorInventoryTab {
 	/**
 	 * OnClick handler for deleting an item container.
 	 */
-	_onContainerDelete(e, actorInventory) {
+	_onContainerDelete(e: JQuery.ClickEvent, actorInventory: ActorInventory): void {
 		e.preventDefault();
 
-		const parent = $(e.currentTarget).parent(".fatex-actions");
+		const parent = $(e.currentTarget).parents(".fatex-item-container");
 		if (parent.length > 0) {
 			Dialog.confirm({
 				title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Title"),
@@ -99,11 +103,11 @@ class ActorInventoryTab {
 					if (actorInventory.removeContainer(parent[0].dataset.container)) {
 						this.render();
 					} else {
-						ui.notifications.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Fail")}: ${parent[0].dataset.container}.`);
+						ui.notifications?.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Fail")}: ${parent[0].dataset.container}.`);
 					}
 				},
 				no: (html) => { },
-				defaultValue: false
+				defaultYes: false
 			});
 		}
 	}
@@ -111,10 +115,10 @@ class ActorInventoryTab {
 	/**
 	 * OnClick handler for collapse button.
 	 */
-	_onCollapseToggle(e, actorInventory) {
+	_onCollapseToggle(e: JQuery.ClickEvent, actorInventory: ActorInventory): void {
 		e.preventDefault();
 
-		const parent = $(e.currentTarget).parent(".fatex-actions");
+		const parent = $(e.currentTarget).parents(".fatex-item-container");
 		if (parent.length > 0) {
 			actorInventory.toggleContainerCollapse(parent[0].dataset.container);
 		}
@@ -125,7 +129,7 @@ class ActorInventoryTab {
 	/**
 	 * OnClick handler for adding a new item container.
 	 */
-	_onContainerAdd(e, actorInventory) {
+	_onContainerAdd(e: JQuery.ClickEvent, actorInventory: ActorInventory): void {
 		e.preventDefault();
 
 		new Dialog({
@@ -135,14 +139,14 @@ class ActorInventoryTab {
 				createButton: {
 					label: game.i18n.localize("Save"),
 					callback: (html) => {
-						const value = html.find("input#containerName").val();
+						const value = $(html).find("input#containerName").val()?.toString();
 
-						if (value.trim() === "") {
-							ui.notifications.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.FailEmptyName"));
+						if (value === undefined) {
+							ui.notifications?.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.FailEmptyName"));
 						} else if (actorInventory.addContainer(value, 0)) {
 							this.render();
 						} else {
-							ui.notifications.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.Fail")}: ${value}.`);
+							ui.notifications?.error(`${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.Fail")}: ${value}.`);
 						}
 					},
 					icon: `<i class="fas fa-check"></i>`
@@ -155,5 +159,17 @@ class ActorInventoryTab {
 			},
 			default: "cancelButton"
 		}).render(true);
+	}
+
+	/**
+	 * OnClick handler for adding a new item to a container.
+	 */
+	_onItemAdd(e: JQuery.ClickEvent, actorInventory: ActorInventory): void {
+		e.preventDefault();
+
+		const parent = $(e.currentTarget).parents(".fatex-item-container");
+		if (parent.length > 0) {
+			actorInventory.addItem(parent[0].dataset.container, "", 1);
+		}
 	}
 }

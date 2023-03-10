@@ -1,55 +1,37 @@
+import { SortMode } from "../enums/SortMode.js";
+import {ActorInventoryContainer} from "./ActorInventoryContainer.js";
+
 /**
  * The following class defines access methods for the actor's inventory,
  * the data of which is stored in an actor's Flags.
  */
-class ActorInventory {
-	static SortMode = {
-		AscAlphabetical: 0,
-		DescAlphabetical: 1,
-		AscAmount: 2,
-		DescAmount: 3,
-		User: 4
-	}
+export class ActorInventory {
+	#targetActor: Actor;
 
-	#targetActor;
-
-	constructor(target) {
+	constructor(target: Actor) {
 		this.#targetActor = target;
 	}
 
-	setup() {
+	setup(): void {
 		let containers = this.getContainers();
 
-		let equipped = {
-			name: "Equipped",
-			sort: 0,
-			sortMode: ActorInventory.SortMode.User,
-			collapsed: false,
-			items: []
-		};
-		if (!containers || containers.filter(c => c.name === equipped.name).length === 0) {
-			this.#targetActor.setFlag("fatex", "inventory", [equipped]);
+		if (!containers || containers.filter(c => c.name === "Equipped").length === 0) {
+			this.#targetActor.setFlag("fatex", "inventory", [new ActorInventoryContainer("Equipped")]);
 		}
 	}
 
-	getContainers() {
-		return this.#targetActor.getFlag("fatex", "inventory");
+	getContainers(): ActorInventoryContainer[] {
+		return this.#targetActor.getFlag("fatex", "inventory") as ActorInventoryContainer[];
 	}
 
-	addContainer(name, sort = 1, sortMode = ActorInventory.SortMode.User) {
+	addContainer(name: string, sort: number = 1, sortMode: SortMode = SortMode.User): boolean {
 		let containers = this.getContainers();
 
 		if (containers.filter(c => c.name === name).length === 0) {
 			if (sort <= 0)
 				sort = 1;
 
-			containers.push({
-				name: name,
-				sort: sort,
-				sortMode: sortMode,
-				collapsed: false,
-				items: []
-			});
+			containers.push(new ActorInventoryContainer(name, sort, sortMode));
 			this.#targetActor.setFlag("fatex", "inventory", containers);
 
 			return true;
@@ -57,7 +39,7 @@ class ActorInventory {
 		return false;
 	}
 
-	removeContainer(name) {
+	removeContainer(name: string): boolean {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === name);
@@ -73,7 +55,7 @@ class ActorInventory {
 		return false;
 	}
 
-	renameContainer(name, newName) {
+	renameContainer(name: string, newName: string): boolean {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === name);
@@ -86,7 +68,7 @@ class ActorInventory {
 		return false;
 	}
 
-	toggleContainerCollapse(name) {
+	toggleContainerCollapse(name: string): void {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === name);
@@ -96,7 +78,7 @@ class ActorInventory {
 		}
 	}
 
-	setContainerSortMode(name, sortMode) {
+	setContainerSortMode(name: string, sortMode: SortMode): void {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === name);
@@ -106,16 +88,22 @@ class ActorInventory {
 		}
 	}
 
-	addItem(container, referenceId, amount, sort = 0) {
+	addItem(container: string, referenceId: string, amount: number, sort: number = 0): boolean {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === container);
 		if (targetContainer.length > 0) {
-			let targetItem = targetContainer[0].filter(i => i.referenceId === referenceId);
+			let targetItem = targetContainer[0].items.filter(i => i.referenceId === referenceId);
 			if (targetItem.length > 0) {
 				targetItem[0].amount += amount;
 			} else {
-				targetContainer[0].push({ referenceId: referenceId, sort: sort, amount: amount });
+				/*targetContainer[0].items.push({
+					referenceId: referenceId,
+					name: "",
+					description: "",
+					sort: sort,
+					amount: amount
+				});*/
 			}
 			this.#targetActor.setFlag("fatex", "inventory", containers);
 
@@ -124,21 +112,24 @@ class ActorInventory {
 		return false;
 	}
 
-	removeItem(container, referenceId, amount) {
+	removeItem(container: string, referenceId: string, amount: number): boolean {
 		let containers = this.getContainers();
 
 		let targetContainer = containers.filter(c => c.name === container);
 		if (targetContainer.length > 0) {
-			let targetItem = targetContainer[0].filter(i => i.referenceId === referenceId);
+			let targetItem = targetContainer[0].items.filter(i => i.referenceId === referenceId);
 			if (targetItem.length > 0) {
 				targetItem[0].amount -= amount;
-				if (targetItem[0].amount < 0) {
-					targetContainer[0].remove(targetItem[0]);
+				if (targetItem[0].amount <= 0) {
+					let index = targetContainer[0].items.indexOf(targetItem[0]);
+					if(index > -1) {
+						targetContainer[0].items.splice(index, 1);
+					}
 				}
-			}
-			this.#targetActor.setFlag("fatex", "inventory", inventory);
+				this.#targetActor.setFlag("fatex", "inventory", containers);
 
-			return true;
+				return true;
+			}
 		}
 		return false;
 	}

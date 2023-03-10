@@ -15,6 +15,9 @@
 					"Amount": "Amount"
 				}
 			},
+			"ITEM": {
+				"Add": "Add new item to this container"
+			},
 			"DIALOG": {
 				"CONTAINER": {
 					"MODIFY": {

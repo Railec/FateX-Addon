@@ -2,7 +2,7 @@
 	"id": "FateX-Addon",
 	"title": "FateX Addon Project",
 	"description": "A module that adds a variety of systems to the FateX system.",
-	"version": "#{VERSION}#",
+	"version": "{{version}}",
 	"library": "false",
 	"manifestPlusVersion": "1.2.0",
 	"compatibility": {
@@ -31,27 +31,18 @@
 	"system": [
 		"fatex"
 	],
-	"esmodules": [
-		"scripts/module.js"
-	],
-	"scripts": [
-		"scripts/data/FateXAddon.js",
-		"scripts/data/ActorInventory.js",
-		"scripts/ui/ActorInventoryTab.js"
-	],
-	"styles": [
-		"styles/FateX-Addon.css"
-	],
+	"esmodules": "{{sources}}",
+	"styles": "{{css}}",
 	"languages": [
 		{
 			"lang": "en",
 			"name": "English",
-			"path": "languages/en.json"
+			"path": "static/languages/en.json"
 		}
 	],
-	"url": "#{URL}#",
-	"manifest": "#{MANIFEST}#",
-	"download": "#{DOWNLOAD}#",
+	"url": "{{url}}",
+	"manifest": "{{manifest}}",
+	"download": "{{download}}",
 	"license": "LICENSE",
 	"readme": "README.md",
 	"media": []

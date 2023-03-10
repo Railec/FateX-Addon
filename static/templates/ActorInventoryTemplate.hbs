@@ -1,10 +1,10 @@
 <section class="fatex-u-full-width">
 	<div class="fatex-u-padding-std fatex-item-grid">
 		{{#each containers}}
-		<div class="fatex-item-container">
+		<div class="fatex-item-container" data-container="{{name}}">
 			<div class="fatex-headline">
 				<h3 class="fatex-headline__text">{{name}}:</h3>
-				<div class="fatex-actions fatex-actions--headline" data-container="{{name}}">
+				<div class="fatex-actions fatex-actions--headline">
 					{{#if sort}}
 					<i class="fatex-addon-js-container-sort fatex-actions__icon fatex-u-sort fa fa-sort" 
 						data-tooltip="{{localize "FATEX-ADDON.INVENTORY.CONTAINER.Sort"}}"></i>
@@ -26,17 +26,15 @@
 						<th>{{localize "FATEX-ADDON.INVENTORY.CONTAINER.TABLE.Amount"}}</th>
 					</thead>
 					<tbody>
-						<tr>
-							<td>Test</td>
-							<td>A simple test entry.</td>
-							<td>1</td>
-						</tr>
-						<tr>
-							<td>Test</td>
-							<td>A simple test entry.</td>
-							<td>1</td>
-						</tr>
-						<tr class="fatex-addon-js-item-add fatex-u-add">
+						{{#each items}}
+							<tr>
+								<td>{{name}}</td>
+								<td>{{description}}</td>
+								<td>{{amount}}</td>
+							</tr>
+						{{/each}}
+						<tr class="fatex-addon-js-item-add fatex-u-add"
+							data-tooltip="{{localize "FATEX-ADDON.INVENTORY.ITEM.Add"}}">
 							<td colspan="3">+</td>
 						</tr>
 					</tbody>
