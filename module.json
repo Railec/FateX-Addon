@@ -2,7 +2,7 @@
 	"id": "FateX-Addon",
 	"title": "FateX Addon Project",
 	"description": "A module that adds a variety of systems to the FateX system.",
-	"version": "{{VERSION}}",
+	"version": "#{VERSION}#",
 	"library": "false",
 	"manifestPlusVersion": "1.2.0",
 	"compatibility": {
@@ -31,8 +31,8 @@
 	"system": [
 		"fatex"
 	],
-	"esmodules": "#{SOURCES}#",
-	"styles": "#{CSS}#",
+	"esmodules": "{{SOURCES}}",
+	"styles": "{{CSS}}",
 	"languages": [
 		{
 			"lang": "en",
