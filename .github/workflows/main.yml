@@ -38,7 +38,7 @@ jobs:
       with:
         files: 'module.json'
       env:
-        VERSION: ${{ steps.get-version.outputs.version }}
+        VERSION: ${{ steps.get_version.outputs.version }}
         URL: ${{ env.project_url }}
         MANIFEST: ${{ env.manifest_url }}
         DOWNLOAD: ${{ env.module_url }}
