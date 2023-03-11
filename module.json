@@ -31,8 +31,8 @@
 	"system": [
 		"fatex"
 	],
-	"esmodules": "{{SOURCES}}",
-	"styles": "{{CSS}}",
+	"esmodules": "#{SOURCES}#",
+	"styles": "#{CSS}#",
 	"languages": [
 		{
 			"lang": "en",
@@ -40,9 +40,9 @@
 			"path": "static\\languages\\en.json"
 		}
 	],
-	"url": "{{URL}}",
-	"manifest": "{{MANIFEST}}",
-	"download": "{{DOWNLOAD}}",
+	"url": "#{URL}#",
+	"manifest": "#{MANIFEST}#",
+	"download": "#{DOWNLOAD}#",
 	"license": "LICENSE",
 	"readme": "README.md",
 	"media": []
