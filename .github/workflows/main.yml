@@ -29,7 +29,7 @@ jobs:
     - name: Extract tag version number
       id: get_version
       shell: bash
-      run: echo "::set-output name=version::$(node ./github/workflows/get-version.js ${{ github.ref }})"
+      run: echo "version=$(node .github/workflows/get-version.js ${{ github.ref }})" >> $GITHUB_OUTPUT
 
     # Substitute the Manifest and Download URLs in the module.json
     - name: Substitute Manifest and Download Links For Versioned Ones
