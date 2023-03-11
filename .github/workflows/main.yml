@@ -10,8 +10,18 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x, 18.x]
+
     steps:
     - uses: actions/checkout@v3
+
+    - name: Uses Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
 
     # get part of the tag after the `v`
     - name: Extract tag version number
@@ -31,7 +41,10 @@ jobs:
         download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
 
     # Create a zip file with all files required by the module to add to the release
-    - run: zip -r ./module.zip module.json README.md LICENSE src/ static/
+    - name: Build
+      run: |
+        npm install
+        npx gulp zip
 
     # Create a release for this specific version
     - name: Update Release with Files
@@ -43,6 +56,6 @@ jobs:
         draft: ${{ github.event.release.unpublished }}
         prerelease: ${{ github.event.release.prerelease }}
         token: ${{ secrets.GITHUB_TOKEN }}
-        artifacts: './module.json, ./module.zip'
+        artifacts: './bundle/module.json, ./bundle/module.zip'
         tag: ${{ github.event.release.tag_name }}
         body: ${{ github.event.release.body }}

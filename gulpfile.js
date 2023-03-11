@@ -86,10 +86,10 @@ function compressDistribution() {
 	return gulp.series(
 		// Copy files to folder with module's name
 		() => gulp.src(DIST + GLOB)
-			.pipe(gulp.dest(DIST + `${PACKAGE.name}/${PACKAGE.name}`))
+			.pipe(gulp.dest(DIST + `${PACKAGE.name}`))
 		// Compress the new folder into a ZIP and save it to the `bundle` folder
 		, () => gulp.src(DIST + PACKAGE.name + '/' + GLOB)
-			.pipe(zip(PACKAGE.name + '.zip'))
+			.pipe(zip('module.zip'))
 			.pipe(gulp.dest(BUNDLE))
 		// Copy the module.json to the bundle directory
 		, () => gulp.src(DIST + '/module.json')
@@ -139,7 +139,7 @@ exports.dev = gulp.series(
 exports.zip = gulp.series(
 	pdel([DIST])
 	, gulp.parallel(
-		buildSource(false, false)
+		buildSource(false, true)
 		, buildManifest()
 		, outputLanguages()
 		, outputTemplates()

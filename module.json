@@ -37,7 +37,7 @@
 		{
 			"lang": "en",
 			"name": "English",
-			"path": "static/languages/en.json"
+			"path": "static\\languages\\en.json"
 		}
 	],
 	"url": "{{url}}",

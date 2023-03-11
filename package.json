@@ -12,8 +12,7 @@
 		"devbuild": "npx gulp dev",
 		"devwatch": "npx gulp devWatch",
 		"devclean": "npx gulp devClean",
-		"release": "npx gulp zip",
-		"tag": "git tag -d ${npm_package_name}_${npm_package_version} 2>/dev/null ; git tag ${npm_package_name}_${npm_package_version} && git push -f origin ${npm_package_name}_${npm_package_version}"
+		"release": "npx gulp zip"
 	},
 	"devDependencies": {
 		"@league-of-foundry-developers/foundry-vtt-types": "^0.7.9-0",
