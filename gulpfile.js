@@ -66,8 +66,8 @@ function buildManifest(output = null) {
 			const css = files.filter(e => e.endsWith('css'));
 			fs.readFile('module.json', (err, data) => {
 				const module = data.toString() // Inject the data into the module.json
-					.replace('"{{sources}}"', stringify(js, null, '\t').replaceAll('\n', '\n\t'))
-					.replace('"{{css}}"', stringify(css, null, '\t').replaceAll('\n', '\n\t'));
+					.replace('"{{SOURCES}}"', stringify(js, null, '\t').replaceAll('\n', '\n\t'))
+					.replace('"{{CSS}}"', stringify(css, null, '\t').replaceAll('\n', '\n\t'));
 				fs.writeFile((output || DIST) + 'module.json', module, cb); // save the module to the distribution directory
 			});
 		});
