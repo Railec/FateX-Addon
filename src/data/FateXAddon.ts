@@ -5,6 +5,16 @@
 export class FateXAddon {
 	static ModuleId: string = "FateX-Addon"
 	static Templates = {
-		ActorInventory: `modules/${this.ModuleId}/static/templates/ActorInventoryTemplate.hbs`
+		Inventory: {
+			ActorInventory: `modules/${this.ModuleId}/static/templates/inventory/ActorInventoryTemplate.hbs`,
+			Container: {
+				AddContainer: `modules/${this.ModuleId}/static/templates/inventory/container/AddContainerTemplate.hbs`,
+				DeleteContainer: `modules/${this.ModuleId}/static/templates/inventory/container/DeleteContainerTemplate.hbs`,
+				ModifyContainer: `modules/${this.ModuleId}/static/templates/inventory/container/ModifyContainerTemplate.hbs`,
+			},
+			Item: {
+				AddItem: `modules/${this.ModuleId}/static/templates/inventory/item/AddItemTemplate.hbs`
+			}
+		}
 	}
 }

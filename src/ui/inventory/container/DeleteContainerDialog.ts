@@ -1,31 +1,23 @@
-import { ActorInventory } from "../../../../data/ActorInventory";
-import { ActorInventoryContainer } from "../../../../data/ActorInventoryContainer";
-import { ActorInventoryTab } from "../../../ActorInventoryTab";
+import { FateXAddon } from "../../../data/FateXAddon.js";
+import { ActorInventory } from "../../../data/ActorInventory.js";
+import { ActorInventoryContainer } from "../../../data/ActorInventoryContainer.js";
+import { ActorInventoryTab } from "../../ActorInventoryTab.js";
 
 export class DeleteContainerDialog {
 	#parent: ActorInventoryTab;
 	#targetInventory: ActorInventory;
 	#targetContainer: ActorInventoryContainer;
-	#foundryDialog: Dialog;
 
 	constructor(parent: ActorInventoryTab, targetInventory: ActorInventory, targetContainer: ActorInventoryContainer) {
 		this.#parent = parent;
 		this.#targetInventory = targetInventory;
 		this.#targetContainer = targetContainer;
-		this.#foundryDialog = new Dialog({
-			title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Title"),
-			content: this.#getContent(),
-			buttons: this.#getButtons(),
-			default: "cancel"
-		});
 	}
 
-	#getContent(): string {
-		return `
-			<p>
-				${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Content")}: ${this.#targetContainer.name}?
-			</p>
-		`;
+	async #getContent(): Promise<string> {
+		return renderTemplate(FateXAddon.Templates.Inventory.Container.DeleteContainer, {
+			name: this.#targetContainer.name
+		});
 	}
 
 	#getButtons(): Record<string, Dialog.Button<unknown>> {
@@ -52,7 +44,12 @@ export class DeleteContainerDialog {
 	#onCancel(): void {
 	}
 
-	render(): void {
-		this.#foundryDialog.render(true);
+	async render(): Promise<void> {
+		new Dialog({
+			title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.DELETE.Title"),
+			content: await this.#getContent(),
+			buttons: this.#getButtons(),
+			default: "cancel"
+		}).render(true);
 	}
 }

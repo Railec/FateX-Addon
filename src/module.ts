@@ -6,7 +6,11 @@ Hooks.once('init', async function () {
 	console.log(`${FateXAddon.ModuleId} | Initializing addon`);
 
 	loadTemplates([
-		FateXAddon.Templates.ActorInventory
+		FateXAddon.Templates.Inventory.ActorInventory,
+		FateXAddon.Templates.Inventory.Container.AddContainer,
+		FateXAddon.Templates.Inventory.Container.DeleteContainer,
+		FateXAddon.Templates.Inventory.Container.ModifyContainer,
+		FateXAddon.Templates.Inventory.Item.AddItem
 	]);
 });
 

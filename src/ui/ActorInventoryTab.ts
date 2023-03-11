@@ -1,9 +1,9 @@
 import { FateXAddon } from "../data/FateXAddon.js";
 import { ActorInventory } from "../data/ActorInventory.js";
-import { ModifyContainerDialog } from "./dialogs/inventory/container/ModifyContainerDialog.js";
-import { DeleteContainerDialog } from "./dialogs/inventory/container/DeleteContainerDialog.js";
-import { AddContainerDialog } from "./dialogs/inventory/container/AddContainerDialog.js";
-import { AddItemDialog } from "./dialogs/inventory/item/AddItemDialog.js";
+import { ModifyContainerDialog } from "./inventory/container/ModifyContainerDialog.js";
+import { DeleteContainerDialog } from "./inventory/container/DeleteContainerDialog.js";
+import { AddContainerDialog } from "./inventory/container/AddContainerDialog.js";
+import { AddItemDialog } from "./inventory/item/AddItemDialog.js";
 
 /**
  * This class defines and controls the Inventory Tab.
@@ -35,7 +35,7 @@ export class ActorInventoryTab {
 		let data = {
 			containers: this.#inventory.getContainers()
 		};
-		let html = await renderTemplate(FateXAddon.Templates.ActorInventory, data);
+		let html = await renderTemplate(FateXAddon.Templates.Inventory.ActorInventory, data);
 
 		if (this.#application.element.find(".tab[data-tab=inventory]").length) {
 			this.#application.element.find(".tab[data-tab=inventory]").empty().append(`

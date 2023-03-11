@@ -1,33 +1,21 @@
-import { ActorInventory } from "../../../../data/ActorInventory";
-import { ActorInventoryContainer } from "../../../../data/ActorInventoryContainer";
-import { ActorInventoryTab } from "../../../ActorInventoryTab";
+import { FateXAddon } from "../../../data/FateXAddon.js";
+import { ActorInventory } from "../../../data/ActorInventory.js";
+import { ActorInventoryContainer } from "../../../data/ActorInventoryContainer.js";
+import { ActorInventoryTab } from "../../ActorInventoryTab.js";
 
 export class AddItemDialog {
 	#parent: ActorInventoryTab;
 	#targetInventory: ActorInventory;
 	#targetContainer: ActorInventoryContainer;
-	#foundryDialog: Dialog;
 
 	constructor(parent: ActorInventoryTab, targetInventory: ActorInventory, targetContainer: ActorInventoryContainer) {
 		this.#parent = parent;
 		this.#targetInventory = targetInventory;
 		this.#targetContainer = targetContainer;
-		this.#foundryDialog = new Dialog({
-			title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.ITEM.ADD.Title"),
-			content: this.#getContent(),
-			buttons: this.#getButtons(),
-			default: "cancel"
-		});
 	}
 
-	#getContent(): string {
-		return `
-			<p>
-				<label>${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.ITEM.ADD.Content")}:</label>
-				<br/>
-				<input id="itemName" type="text"/>
-			</p>
-		`;
+	async #getContent(): Promise<string> {
+		return renderTemplate(FateXAddon.Templates.Inventory.Item.AddItem, {});
 	}
 
 	#getButtons(): Record<string, Dialog.Button<unknown>> {
@@ -46,7 +34,7 @@ export class AddItemDialog {
 	}
 
 	#onSave(html: any) {
-		const name = $(html).find("input#itemName").val()?.toString();
+		const name = $(html).find("input[name=name]").val()?.toString();
 
 		if(name === undefined) {
 			ui.notifications?.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.ITEM.ADD.ERROR.EmptyName"));
@@ -61,7 +49,12 @@ export class AddItemDialog {
 	#onCancel() {
 	}
 
-	render(): void {
-		this.#foundryDialog.render(true);
+	async render(): Promise<void> {
+		new Dialog({
+			title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.ITEM.ADD.Title"),
+			content: await this.#getContent(),
+			buttons: this.#getButtons(),
+			default: "cancel"
+		}).render(true);
 	}
 }

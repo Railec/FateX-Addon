@@ -14,12 +14,21 @@
 					"Description": "Description",
 					"Amount": "Amount"
 				},
+				"FIELDS": {
+					"Name": "Name"
+				},
 				"ERROR": {
 					"InvalidContainerName": "Invalid Container name"
 				}
 			},
 			"ITEM": {
 				"Add": "Add new item to this container",
+				"FIELDS": {
+					"ReferenceId": "Item Reference",
+					"Name": "Name",
+					"Description": "Description",
+					"Amount": "Amount"
+				},
 				"ERROR": {
 					"InvalidReferenceId": "Invalid Reference Id"
 				}
@@ -28,7 +37,7 @@
 				"CONTAINER": {
 					"MODIFY": {
 						"Title": "Change item container name",
-						"Content": "New container name",
+						"Content": "",
 						"ERROR": {
 							"EmptyName": "Cannot rename an item container to have no name",
 							"Generic": "Cannot rename the item container"
@@ -43,7 +52,7 @@
 					},
 					"ADD": {
 						"Title": "Create new item container",
-						"Content": "Container name",
+						"Content": "Add a new container to the actor's inventory.",
 						"ERROR": {
 							"EmptyName": "Cannot create a new item container without a name",
 							"Generic": "Cannot create the new item container"
@@ -67,7 +76,7 @@
 					},
 					"ADD": {
 						"Title": "Add item to container",
-						"Content": "",
+						"Content": "Add new item to the container.",
 						"ERROR": {
 							"EmptyName": "Cannot create a custom item without a name",
 							"Generic": "Cannot add the item to the container"

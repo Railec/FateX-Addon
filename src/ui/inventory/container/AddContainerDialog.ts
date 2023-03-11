@@ -1,30 +1,18 @@
-import { ActorInventory } from "../../../../data/ActorInventory";
-import { ActorInventoryTab } from "../../../ActorInventoryTab";
+import { ActorInventory } from "../../../data/ActorInventory.js";
+import { FateXAddon } from "../../../data/FateXAddon.js";
+import { ActorInventoryTab } from "../../ActorInventoryTab.js";
 
 export class AddContainerDialog {
 	#parent: ActorInventoryTab;
 	#targetInventory: ActorInventory;
-	#foundryDialog: Dialog;
 
 	constructor(parent: ActorInventoryTab, targetInventory: ActorInventory) {
 		this.#parent = parent;
 		this.#targetInventory = targetInventory;
-		this.#foundryDialog = new Dialog({
-			title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.Title"),
-			content: this.#getContent(),
-			buttons: this.#getButtons(),
-			default: "cancel"
-		});
 	}
 
-	#getContent(): string {
-		return `
-			<p>
-				<label>${game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.Content")}:</label>
-				<br/>
-				<input id="containerName" type="text"/>
-			</p>
-		`;
+	async #getContent(): Promise<string> {
+		return renderTemplate(FateXAddon.Templates.Inventory.Container.AddContainer, {});
 	}
 
 	#getButtons(): Record<string, Dialog.Button<unknown>> {
@@ -43,7 +31,7 @@ export class AddContainerDialog {
 	}
 
 	#onSave(html: any) {
-		const name = $(html).find("input#containerName").val()?.toString();
+		const name = $(html).find("input[name=name]").val()?.toString();
 
 		if(name === undefined) {
 			ui.notifications?.error(game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.ERROR.EmptyName"));
@@ -58,7 +46,12 @@ export class AddContainerDialog {
 	#onCancel() {
 	}
 
-	render(): void {
-		this.#foundryDialog.render(true);
+	async render(): Promise<void> {
+		new Dialog({
+			title: game.i18n.localize("FATEX-ADDON.INVENTORY.DIALOG.CONTAINER.ADD.Title"),
+			content: await this.#getContent(),
+			buttons: this.#getButtons(),
+			default: "cancel"
+		}).render(true);
 	}
 }
