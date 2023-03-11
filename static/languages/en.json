@@ -13,29 +13,65 @@
 					"Name": "Name",
 					"Description": "Description",
 					"Amount": "Amount"
+				},
+				"ERROR": {
+					"InvalidContainerName": "Invalid Container name"
 				}
 			},
 			"ITEM": {
-				"Add": "Add new item to this container"
+				"Add": "Add new item to this container",
+				"ERROR": {
+					"InvalidReferenceId": "Invalid Reference Id"
+				}
 			},
 			"DIALOG": {
 				"CONTAINER": {
 					"MODIFY": {
-						"title": "Change item container name",
+						"Title": "Change item container name",
 						"Content": "New container name",
-						"FailEmptyName": "Cannot rename an item container to have an empty name.",
-						"Fail": "Cannot rename the item container"
+						"ERROR": {
+							"EmptyName": "Cannot rename an item container to have no name",
+							"Generic": "Cannot rename the item container"
+						}
 					},
 					"DELETE": {
 						"Title": "Delete item container",
 						"Content": "Delete item container",
-						"Fail": "Cannot remove the item container"
+						"ERROR": {
+							"Generic": "Cannot remove the item container"
+						}
 					},
 					"ADD": {
-						"title": "Create new item container",
+						"Title": "Create new item container",
 						"Content": "Container name",
-						"FailEmptyName": "Cannot create a new item container without a name.",
-						"Fail": "Cannot create the new item container"
+						"ERROR": {
+							"EmptyName": "Cannot create a new item container without a name",
+							"Generic": "Cannot create the new item container"
+						}
+					}
+				},
+				"ITEM": {
+					"MODIFY": {
+						"Title": "Change item",
+						"Content": "",
+						"ERROR": {
+							"Generic": "Cannot modify the item"
+						}
+					},
+					"REMOVE": {
+						"Title": "Remove item",
+						"Content": "",
+						"ERROR": {
+							"Generic": "Cannot remove the item"
+						}
+					},
+					"ADD": {
+						"Title": "Add item to container",
+						"Content": "",
+						"ERROR": {
+							"EmptyName": "Cannot create a custom item without a name",
+							"Generic": "Cannot add the item to the container"
+						}
 					}
 				}
 			}

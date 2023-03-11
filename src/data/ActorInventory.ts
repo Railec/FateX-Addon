@@ -1,5 +1,5 @@
 import { SortMode } from "../enums/SortMode.js";
-import {ActorInventoryContainer} from "./ActorInventoryContainer.js";
+import { ActorInventoryContainer } from "./ActorInventoryContainer.js";
 
 /**
  * The following class defines access methods for the actor's inventory,
@@ -7,130 +7,67 @@ import {ActorInventoryContainer} from "./ActorInventoryContainer.js";
  */
 export class ActorInventory {
 	#targetActor: Actor;
+	containers: ActorInventoryContainer[] = [];
 
 	constructor(target: Actor) {
 		this.#targetActor = target;
-	}
 
-	setup(): void {
-		let containers = this.getContainers();
-
-		if (!containers || containers.filter(c => c.name === "Equipped").length === 0) {
-			this.#targetActor.setFlag("fatex", "inventory", [new ActorInventoryContainer("Equipped")]);
+		this.containers = this.#targetActor.getFlag("fatex", "inventory") as ActorInventoryContainer[];
+		if(!this.containers.find(x => x.name === "Equipped")) {
+			this.containers.push(new ActorInventoryContainer("Equipped"));
+			this.updateInventory();
 		}
 	}
 
 	getContainers(): ActorInventoryContainer[] {
-		return this.#targetActor.getFlag("fatex", "inventory") as ActorInventoryContainer[];
+		return this.containers;
 	}
 
-	addContainer(name: string, sort: number = 1, sortMode: SortMode = SortMode.User): boolean {
-		let containers = this.getContainers();
+	getContainer(name: string): ActorInventoryContainer | undefined {
+		return this.containers.find(x => x.name === name);
+	}
 
-		if (containers.filter(c => c.name === name).length === 0) {
-			if (sort <= 0)
-				sort = 1;
-
-			containers.push(new ActorInventoryContainer(name, sort, sortMode));
-			this.#targetActor.setFlag("fatex", "inventory", containers);
-
-			return true;
+	addContainer(name: string, sort: number = 1, sortMode: SortMode = SortMode.User): ActorInventoryContainer | undefined {
+		let targetContainer = this.getContainer(name);
+		if(!targetContainer) {
+			targetContainer = new ActorInventoryContainer(name, sort > 0 ? sort : 1, sortMode);
+			this.containers.push(targetContainer);
 		}
-		return false;
+
+		return targetContainer;
 	}
 
-	removeContainer(name: string): boolean {
-		let containers = this.getContainers();
+	removeContainer(name: string): void {
+		let targetContainer = this.getContainer(name);
+		if(targetContainer) {
+			this.containers.splice(this.containers.indexOf(targetContainer), 1);
+		}
+	}
 
-		let targetContainer = containers.filter(c => c.name === name);
-		if (targetContainer.length > 0) {
-			let index = containers.indexOf(targetContainer[0]);
-			if (index > -1) {
-				containers.splice(index, 1);
-				this.#targetActor.setFlag("fatex", "inventory", containers);
-
-				return true;
+	modifyContainer(name: string, modifiedContainer: ActorInventoryContainer.Modification): ActorInventoryContainer | undefined {
+		let targetContainer = this.getContainer(name);
+		if(targetContainer) {
+			if(modifiedContainer.name) {
+				targetContainer.name = modifiedContainer.name;
+			}
+			if(modifiedContainer.sort) {
+				targetContainer.sort = modifiedContainer.sort;
+			}
+			if(modifiedContainer.sortMode) {
+				targetContainer.sortMode = modifiedContainer.sortMode;
 			}
 		}
-		return false;
-	}
-
-	renameContainer(name: string, newName: string): boolean {
-		let containers = this.getContainers();
-
-		let targetContainer = containers.filter(c => c.name === name);
-		if (targetContainer.length > 0) {
-			targetContainer[0].name = newName;
-			this.#targetActor.setFlag("fatex", "inventory", containers);
-
-			return true;
-		}
-		return false;
+		return targetContainer;
 	}
 
 	toggleContainerCollapse(name: string): void {
-		let containers = this.getContainers();
-
-		let targetContainer = containers.filter(c => c.name === name);
-		if (targetContainer.length > 0) {
-			targetContainer[0].collapsed = !targetContainer[0].collapsed;
-			this.#targetActor.setFlag("fatex", "inventory", containers);
+		let targetContainer = this.getContainer(name);
+		if (targetContainer) {
+			targetContainer.collapsed = !targetContainer.collapsed;
 		}
 	}
 
-	setContainerSortMode(name: string, sortMode: SortMode): void {
-		let containers = this.getContainers();
-
-		let targetContainer = containers.filter(c => c.name === name);
-		if (targetContainer.length > 0) {
-			targetContainer[0].sortMode = sortMode;
-			this.#targetActor.setFlag("fatex", "inventory", containers);
-		}
-	}
-
-	addItem(container: string, referenceId: string, amount: number, sort: number = 0): boolean {
-		let containers = this.getContainers();
-
-		let targetContainer = containers.filter(c => c.name === container);
-		if (targetContainer.length > 0) {
-			let targetItem = targetContainer[0].items.filter(i => i.referenceId === referenceId);
-			if (targetItem.length > 0) {
-				targetItem[0].amount += amount;
-			} else {
-				/*targetContainer[0].items.push({
-					referenceId: referenceId,
-					name: "",
-					description: "",
-					sort: sort,
-					amount: amount
-				});*/
-			}
-			this.#targetActor.setFlag("fatex", "inventory", containers);
-
-			return true;
-		}
-		return false;
-	}
-
-	removeItem(container: string, referenceId: string, amount: number): boolean {
-		let containers = this.getContainers();
-
-		let targetContainer = containers.filter(c => c.name === container);
-		if (targetContainer.length > 0) {
-			let targetItem = targetContainer[0].items.filter(i => i.referenceId === referenceId);
-			if (targetItem.length > 0) {
-				targetItem[0].amount -= amount;
-				if (targetItem[0].amount <= 0) {
-					let index = targetContainer[0].items.indexOf(targetItem[0]);
-					if(index > -1) {
-						targetContainer[0].items.splice(index, 1);
-					}
-				}
-				this.#targetActor.setFlag("fatex", "inventory", containers);
-
-				return true;
-			}
-		}
-		return false;
+	updateInventory(): void {
+		this.#targetActor.setFlag("fatex", "inventory", this.containers);
 	}
 }
