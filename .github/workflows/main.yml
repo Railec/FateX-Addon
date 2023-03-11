@@ -1,6 +1,7 @@
 name: Release Creation
 
 env:
+  node_version: 16.x
   project_url: "https://github.com/${{github.repository}}"
   manifest_url: https://github.com/${{github.repository}}/releases/latest/download/module.json
   module_url: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
@@ -16,16 +17,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      node-version: "16.x"
-
     steps:
     - uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ node-version }}
+    - name: Use Node.js ${{ env.node_version }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ node-version }}
+        node-version: ${{ env.node_version }}
 
     # get part of the tag after the `v`
     - name: Extract tag version number
