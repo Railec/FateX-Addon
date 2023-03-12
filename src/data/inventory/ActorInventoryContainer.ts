@@ -1,4 +1,4 @@
-import { SortMode } from "../enums/SortMode.js";
+import { SortMode } from "../../enums/SortMode.js";
 import { ActorInventoryItem } from "./ActorInventoryItem.js";
 
 /**
@@ -9,7 +9,7 @@ export class ActorInventoryContainer {
 	sort: number = 0;
 	sortMode: SortMode = SortMode.User;
 	collapsed: boolean = false;
-	items: ActorInventoryItem[] = [];
+	items: ActorInventoryItem[] = [] as ActorInventoryItem[];
 
 	constructor(name: string, sort: number = 0, sortMode: SortMode = SortMode.User) {
 		this.name = name;

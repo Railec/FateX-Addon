@@ -4,11 +4,12 @@
 		"module": "ES6",
 		"lib": [ "DOM", "ES6", "ES2017", "ES2018" ],
 		"typeRoots": [ "node_modules/@types", "types" ],
-		"types": [ "@league-of-foundry-developers/foundry-vtt-types" ],
+		"types": [ "@league-of-foundry-developers/foundry-vtt-types/index-lenient" ],
 		"moduleResolution": "node",
 		"sourceMap": true,
 		"strict": true,
 		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
 
 		//TODO: enable again
 		"noImplicitAny": false /* Raise error on expressions and declarations with an implied 'any' type. */,
@@ -30,5 +31,6 @@
 		"skipLibCheck": true,
 
 		"outDir": "./dist/src"
-	}
+	},
+	"exclude": ["node_modules"]
 }

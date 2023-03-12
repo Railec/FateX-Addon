@@ -1,6 +1,6 @@
-import { ActorInventory } from "../../../data/ActorInventory.js";
+import { ActorInventory } from "../../../data/inventory/ActorInventory.js";
 import { FateXAddon } from "../../../data/FateXAddon.js";
-import { ActorInventoryTab } from "../../ActorInventoryTab.js";
+import { ActorInventoryTab } from "../ActorInventoryTab.js";
 
 export class AddContainerDialog {
 	#parent: ActorInventoryTab;
@@ -19,12 +19,12 @@ export class AddContainerDialog {
 		return {
 			create: {
 				label: game.i18n.localize("Save"),
-				callback: this.#onSave,
+				callback: this.#onSave.bind(this),
 				icon: `<i class="fas fa-check"></i>`
 			},
 			cancel: {
 				label: game.i18n.localize("Cancel"),
-				callback: this.#onCancel,
+				callback: this.#onCancel.bind(this),
 				icon: `<i class="fas fa-cancel"></i>`
 			}
 		}

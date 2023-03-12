@@ -1,7 +1,9 @@
 {
+	"TYPES.Item.FateX-Addon.item": "Item",
 	"FATEX-ADDON": {
 		"Inventory": "Inventory",
 		"INVENTORY": {
+			"Container": "Container",
 			"CONTAINER": {
 				"Sort": "Sort",
 				"Modify": "Modify",
@@ -21,11 +23,16 @@
 					"InvalidContainerName": "Invalid Container name"
 				}
 			},
+			"Item": "Item",
 			"ITEM": {
 				"Add": "Add new item to this container",
 				"FIELDS": {
-					"ReferenceId": "Item Reference",
+					"ReferenceId": "Reference Item",
+					"REFERENCEID": {
+						"Custom": "Custom Item"
+					},
 					"Name": "Name",
+					"ShortDescription": "Short Description",
 					"Description": "Description",
 					"Amount": "Amount"
 				},

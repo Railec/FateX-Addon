@@ -6,6 +6,7 @@ export class FateXAddon {
 	static ModuleId: string = "FateX-Addon"
 	static Templates = {
 		Inventory: {
+			FateXAddonItem: `modules/${this.ModuleId}/static/templates/inventory/FateXAddonItemTemplate.hbs`,
 			ActorInventory: `modules/${this.ModuleId}/static/templates/inventory/ActorInventoryTemplate.hbs`,
 			Container: {
 				AddContainer: `modules/${this.ModuleId}/static/templates/inventory/container/AddContainerTemplate.hbs`,

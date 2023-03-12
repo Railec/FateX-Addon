@@ -1,7 +1,7 @@
 import { FateXAddon } from "../../../data/FateXAddon.js";
-import { ActorInventory } from "../../../data/ActorInventory.js";
-import { ActorInventoryContainer } from "../../../data/ActorInventoryContainer.js";
-import { ActorInventoryTab } from "../../ActorInventoryTab.js";
+import { ActorInventory } from "../../../data/inventory/ActorInventory.js";
+import { ActorInventoryContainer } from "../../../data/inventory/ActorInventoryContainer.js";
+import { ActorInventoryTab } from "../ActorInventoryTab.js";
 
 export class ModifyContainerDialog {
 	#parent: ActorInventoryTab;
@@ -24,12 +24,12 @@ export class ModifyContainerDialog {
 		return {
 			confirm: {
 				label: game.i18n.localize("Save"),
-				callback: this.#onConfirm,
+				callback: this.#onConfirm.bind(this),
 				icon: `<i class="fas fa-check"></i>`
 			},
 			cancel: {
 				label: game.i18n.localize("Cancel"),
-				callback: this.#onCancel,
+				callback: this.#onCancel.bind(this),
 				icon: `<i class="fas fa-cancel"></i>`
 			}
 		}

@@ -1,5 +1,6 @@
-import { SortMode } from "../enums/SortMode.js";
+import { SortMode } from "../../enums/SortMode.js";
 import { ActorInventoryContainer } from "./ActorInventoryContainer.js";
+import { ActorInventoryItem } from "./ActorInventoryItem.js";
 
 /**
  * The following class defines access methods for the actor's inventory,
@@ -12,7 +13,18 @@ export class ActorInventory {
 	constructor(target: Actor) {
 		this.#targetActor = target;
 
-		this.containers = this.#targetActor.getFlag("fatex", "inventory") as ActorInventoryContainer[];
+		//Get the container data from the flag and construct the entire dataset in order to preserve object methods.
+		let flagContainers = this.#targetActor.getFlag("fatex", "inventory") as ActorInventoryContainer[];
+		flagContainers.forEach(c => {
+			let newContainer = new ActorInventoryContainer(c.name, c.sort, c.sortMode);
+			c.items.forEach(i => {
+				let newItem = new ActorInventoryItem(i.referenceId, i.amount, i.sort);
+				newItem.name = i.name;
+				newItem.description = i.description;
+				newContainer.items.push(newItem);
+			});
+			this.containers.push(newContainer);
+		});
 		if(!this.containers.find(x => x.name === "Equipped")) {
 			this.containers.push(new ActorInventoryContainer("Equipped"));
 			this.updateInventory();

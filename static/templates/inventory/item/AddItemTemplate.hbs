@@ -3,9 +3,24 @@
 		{{localize "FATEX-ADDON.INVENTORY.DIALOG.ITEM.ADD.Content"}}
 	</div>
 	<div class="form-group">
+		<label>{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.ReferenceId"}}:</label>
+		<div class="form-fields">
+			<select name="referenceId">
+				<option value="REFID#CUSTOM" selected>{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.REFERENCEID.Custom"}}</option>
+				{{#each itemReferences}}
+					<option value="{{id}}">{{name}}</option>
+				{{/each}}
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
 		<label>{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.Name"}}:</label>
 		<div class="form-fields">
 			<input type="text" name="name" placeholder="{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.Name"}}"/>
 		</div>
+	</div>
+	<div class="form-group">
+		<label>{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.ShortDescription"}}:</label>
+		<input type="text" name="description" style="flex: auto"/>
 	</div>
 </form>

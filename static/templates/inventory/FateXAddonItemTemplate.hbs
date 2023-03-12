@@ -1,0 +1,64 @@
+<form autocomplete="off" class="fatex-u-full-height">
+    <div class="fatex-desk">
+        <div class="fatex-header">
+			<div class="fatex-header__combine">
+				{{#if isOwnedBy}}
+					<div></div>
+				{{else}}
+					<div class="fatex-header__image">
+						<img alt="{{item.name}}" data-edit="img" src="{{item.img}}"/>
+					</div>
+				{{/if}}
+				<div class="fatex-header__name">
+					<label class="fatex-header__label">
+						{{#if isOwnedBy}}
+							{{isOwnedBy}}
+						{{else}}
+							{{localize "FATEX-ADDON.INVENTORY.Item"}}
+						{{/if}}
+					</label>
+					<div class="fatex-header__title">
+						{{item.name}}
+					</div>
+				</div>
+			</div>
+			{{> "systems/fatex/templates/components/header-logo.hbs"}}
+		</div>
+		<div class="fatex-desk__content">
+			<div class="fatex-setting">
+				<header class="fatex-headline">
+					<h3 class="fatex-headline__text">Name:</h3>
+				</header>
+				<label for="name">
+					<input type="text" 
+						   class="fatex-text-input" 
+						   name="name" 
+						   value="{{item.name}}" 
+						   placeholder="{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.Name"}}"/>
+				</label>
+			</div>
+			<div class="fatex-setting">
+				<header class="fatex-headline">
+					<h3 class="fatex-headline__text">{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.ShortDescription"}}:</h3>
+				</header>
+				<label for="description.short">
+					<input type="text" 
+						   class="fatex-text-input" 
+						   name="description.short" 
+						   value="{{item.description.short}}" 
+						   placeholder="{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.ShortDescription"}}"/>
+				</label>
+			</div>
+			<div class="fatex-setting">
+				<header class="fatex-headline">
+					<h3 class="fatex-headline__text">{{localize "FATEX-ADDON.INVENTORY.ITEM.FIELDS.Description"}}:</h3>
+				</header>
+				<label for="description.long">
+					<div class="fatex-setting__editor-wrapper">
+						{{editor item.description.long target="description.long" button=true owner=owner editable=editable engine="prosemirror"}}
+					</div>
+				</label>
+			</div>
+		</div>
+	</div>
+</form>

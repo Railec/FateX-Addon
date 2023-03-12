@@ -1,9 +1,9 @@
-import { FateXAddon } from "../data/FateXAddon.js";
-import { ActorInventory } from "../data/ActorInventory.js";
-import { ModifyContainerDialog } from "./inventory/container/ModifyContainerDialog.js";
-import { DeleteContainerDialog } from "./inventory/container/DeleteContainerDialog.js";
-import { AddContainerDialog } from "./inventory/container/AddContainerDialog.js";
-import { AddItemDialog } from "./inventory/item/AddItemDialog.js";
+import { FateXAddon } from "../../data/FateXAddon.js";
+import { ActorInventory } from "../../data/inventory/ActorInventory.js";
+import { ModifyContainerDialog } from "./container/ModifyContainerDialog.js";
+import { DeleteContainerDialog } from "./container/DeleteContainerDialog.js";
+import { AddContainerDialog } from "./container/AddContainerDialog.js";
+import { AddItemDialog } from "./item/AddItemDialog.js";
 
 /**
  * This class defines and controls the Inventory Tab.
@@ -70,7 +70,7 @@ export class ActorInventoryTab {
 		e.preventDefault();
 
 		const parent = $(e.currentTarget).parents(".fatex-item-container");
-		if (parent.length > 0) {
+		if (parent.length > 0 && parent[0].dataset.container) {
 			let targetContainer = this.#inventory.getContainer(parent[0].dataset.container);
 			if(targetContainer) {
 				let dialog = new ModifyContainerDialog(this, actorInventory, targetContainer);
@@ -88,7 +88,7 @@ export class ActorInventoryTab {
 		e.preventDefault();
 
 		const parent = $(e.currentTarget).parents(".fatex-item-container");
-		if (parent.length > 0) {
+		if (parent.length > 0 && parent[0].dataset.container) {
 			let targetContainer = this.#inventory.getContainer(parent[0].dataset.container);
 			if(targetContainer) {
 				let dialog = new DeleteContainerDialog(this, actorInventory, targetContainer);
@@ -106,7 +106,7 @@ export class ActorInventoryTab {
 		e.preventDefault();
 
 		const parent = $(e.currentTarget).parents(".fatex-item-container");
-		if (parent.length > 0) {
+		if (parent.length > 0 && parent[0].dataset.container) {
 			actorInventory.toggleContainerCollapse(parent[0].dataset.container);
 		}
 
@@ -130,7 +130,7 @@ export class ActorInventoryTab {
 		e.preventDefault();
 
 		const parent = $(e.currentTarget).parents(".fatex-item-container");
-		if (parent.length > 0) {
+		if (parent.length > 0 && parent[0].dataset.container) {
 			let targetContainer = this.#inventory.getContainer(parent[0].dataset.container);
 			if(targetContainer) {
 				let dialog = new AddItemDialog(this, this.#inventory, targetContainer);

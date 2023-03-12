@@ -6,9 +6,8 @@
 	"library": "false",
 	"manifestPlusVersion": "1.2.0",
 	"compatibility": {
-		"minimum": 10,
-		"verified": 10,
-		"maximum": 11
+		"minimum": 11,
+		"verified": 11
 	},
 	"authors": [
 		{
@@ -20,9 +19,10 @@
 			{
 				"id": "fatex",
 				"type": "system",
-				"manifest": "https://github.com/anvil-vtt/FateX/blob/1.0.2/system/system.json",
+				"manifest": "https://github.com/anvil-vtt/FateX/releases/latest/download/system.json",
 				"compatibility": {
-					"verified": "1.0.2"
+					"minimum": "1.0.2",
+					"verified": "1.1.0"
 				}
 			}
 		],
@@ -40,6 +40,13 @@
 			"path": "static\\languages\\en.json"
 		}
 	],
+	"documentTypes": {
+		"Item": {
+			"item": {
+				"htmlFields": ["description.long", "description.short"]
+			}
+		}
+	},
 	"url": "#{URL}#",
 	"manifest": "#{MANIFEST}#",
 	"download": "#{DOWNLOAD}#",
